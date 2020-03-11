@@ -105,8 +105,7 @@ public final class PolicyDecisionPoint extends AbstractPDP {
         try {
             PolicyFinder policyFinder = getPolicyFinder();
             AbstractRequestCtx requestCtx = RequestCtxFactory.getFactory().getRequestCtx( request.getRequest().replaceAll( ">\\s+<", "><" ) );
-            pdpConfig = pdpConfig == null ? Balana.getInstance().getPdpConfig() : pdpConfig;
-            EvaluationCtx evalContext = EvaluationCtxFactory.getFactory().getEvaluationCtx( requestCtx, pdpConfig );
+            EvaluationCtx evalContext = EvaluationCtxFactory.getFactory().getEvaluationCtx( requestCtx, balana.getPdpConfig() );
             PolicyFinderResult policyFinderResult = policyFinder.findPolicy( evalContext );
             return PolicyWrapper.build(getPAP().retrievePolicy( policyFinderResult.getPolicy().getId().toString() ));
         } catch (PolicyException | ParsingException e) {
