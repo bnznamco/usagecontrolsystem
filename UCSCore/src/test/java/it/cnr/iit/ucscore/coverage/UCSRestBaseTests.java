@@ -124,6 +124,11 @@ public class UCSRestBaseTests {
                 return "1";
             }
 
+            @Override
+            public boolean getRedisQueueEnabled() {
+                return false;
+            }
+
         };
     }
 
