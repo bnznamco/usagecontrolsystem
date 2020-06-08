@@ -21,4 +21,6 @@ public interface RequestManagerProperties extends CommonProperties {
     public String getApiRemoteResponse();
 
     public boolean isActive();
+
+    public boolean getRedisQueueEnabled();
 }

@@ -1,12 +1,18 @@
 package it.cnr.iit.ucs.messagingredis;
 
 import com.github.sonus21.rqueue.annotation.RqueueListener;
+
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 import it.cnr.iit.ucs.message.Message;
 import it.cnr.iit.ucs.requestmanager.RequestManagerInterface;
 import it.cnr.iit.utility.errorhandling.Reject;
 
 @Component
+@ConditionalOnProperty(
+    value="usc.request-manager.redisQueue.enabled", 
+    havingValue = "true", 
+    matchIfMissing = false)
 public class RedisQueueListener {
 
     private static RequestManagerInterface requestManager;

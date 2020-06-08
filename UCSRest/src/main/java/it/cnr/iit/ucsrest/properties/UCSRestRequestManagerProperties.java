@@ -12,6 +12,9 @@ public class UCSRestRequestManagerProperties extends BaseProperties implements R
     @Value( "${active}" )
     private boolean active;
 
+    @Value( "${redisQueue.enabled}" )
+    private boolean redisQueueEnabled;
+
     @Override
     public String getApiRemoteResponse() {
         return apiRemoteResponse;
@@ -23,6 +26,10 @@ public class UCSRestRequestManagerProperties extends BaseProperties implements R
 
     public void setActive( boolean active ) {
         this.active = active;
+    }
+
+    public boolean getRedisQueueEnabled() {
+        return redisQueueEnabled;
     }
 
     @Override

@@ -102,7 +102,7 @@ public class UCSCoreServiceBuilder {
         ucsCore.pdp.setPap( ucsCore.pap );
         ucsCore.pdp.setObligationManager( ucsCore.obligationManager );
         ucsCore.obligationManager.setPIPs( new ArrayList<PIPOMInterface>( ucsCore.pipList ) );
-        RedisQueueListener.setRequestManager(ucsCore.requestManager);
+        if (properties.getRequestManager().getRedisQueueEnabled()) RedisQueueListener.setRequestManager(ucsCore.requestManager);
         return this;
     }
 
