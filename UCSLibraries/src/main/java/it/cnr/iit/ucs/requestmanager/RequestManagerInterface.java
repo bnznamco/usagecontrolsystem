@@ -37,4 +37,6 @@ public interface RequestManagerInterface {
      */
     public boolean sendMessage( Message message );
 
+	public void handleMessage(Message message) throws Exception;
+
 }

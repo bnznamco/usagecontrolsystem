@@ -89,4 +89,6 @@ public abstract class AbstractRequestManager implements RequestManagerToCHInterf
 
     public abstract void startMonitoring();
 
+    public void handleMessage( Message message ) throws Exception{};
+
 }
