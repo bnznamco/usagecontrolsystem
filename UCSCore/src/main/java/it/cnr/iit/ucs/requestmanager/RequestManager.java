@@ -27,6 +27,7 @@ import it.cnr.iit.ucs.message.endaccess.EndAccessMessage;
 import it.cnr.iit.ucs.message.reevaluation.ReevaluationResponseMessage;
 import it.cnr.iit.ucs.message.startaccess.StartAccessMessage;
 import it.cnr.iit.ucs.message.tryaccess.TryAccessMessage;
+import it.cnr.iit.ucs.messagingredis.RedisQueueService;
 import it.cnr.iit.ucs.properties.components.RequestManagerProperties;
 import it.cnr.iit.utility.errorhandling.Reject;
 
@@ -40,12 +41,14 @@ public class RequestManager extends AbstractRequestManager {
 
     private static final Logger log = Logger.getLogger( RequestManager.class.getName() );
     private boolean active = false;
+    private RedisQueueService RedisQueueService;
 
     private ExecutorService inquirers;
 
     public RequestManager( RequestManagerProperties properties ) {
         super( properties );
         this.active = properties.isActive();
+        RedisQueueService = new RedisQueueService();
         initializeInquirers();
     }
 
@@ -82,7 +85,8 @@ public class RequestManager extends AbstractRequestManager {
             if( !active ) {
                 handleMessage( message );
             } else {
-                getQueueOutput().put( message );
+                RedisQueueService.handleMessage( message );
+                // getQueueOutput().put( message );
             }
             return true;
         } catch( Exception e ) {
@@ -113,7 +117,7 @@ public class RequestManager extends AbstractRequestManager {
         }
     }
 
-    private void handleMessage( Message message ) throws Exception {
+    public void handleMessage( Message message ) throws Exception {
         Message responseMessage = null;
         if( message instanceof AttributeChangeMessage ) {
             getContextHandler().attributeChanged( (AttributeChangeMessage) message );
