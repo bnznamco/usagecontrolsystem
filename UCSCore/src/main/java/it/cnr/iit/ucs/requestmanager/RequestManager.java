@@ -50,7 +50,7 @@ public class RequestManager extends AbstractRequestManager {
         super( properties );
         this.active = properties.isActive();
         this.redisQueueActive = properties.isRedisQueueActive();
-        if (redisQueueActive) RedisQueueService = new RedisQueueService();
+        if (redisQueueActive) RedisQueueService = new RedisQueueService(properties);
         initializeInquirers();
     }
 
