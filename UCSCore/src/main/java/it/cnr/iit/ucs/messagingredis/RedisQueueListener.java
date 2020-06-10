@@ -2,25 +2,22 @@ package it.cnr.iit.ucs.messagingredis;
 
 import com.github.sonus21.rqueue.annotation.RqueueListener;
 
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.context.annotation.Conditional;
 import org.springframework.stereotype.Component;
 import it.cnr.iit.ucs.message.Message;
 import it.cnr.iit.ucs.requestmanager.RequestManagerInterface;
 import it.cnr.iit.utility.errorhandling.Reject;
 
 @Component
-@ConditionalOnProperty(
-    value="usc.request-manager.redisQueue.enabled", 
-    havingValue = "true", 
-    matchIfMissing = false)
+@Conditional(RedisCondition.class)
 public class RedisQueueListener {
 
     private static RequestManagerInterface requestManager;
 
     @RqueueListener(value = "handle-message")
     public void handleMessage(Message message) {
-        Reject.ifNull( requestManager );
-        Reject.ifNull( message );
+        Reject.ifNull(requestManager);
+        Reject.ifNull(message);
         try {
             requestManager.handleMessage(message);
         } catch (Exception e) {
@@ -28,8 +25,8 @@ public class RedisQueueListener {
         }
     }
 
-    public final static void setRequestManager( RequestManagerInterface rqm ) {
-        Reject.ifNull( rqm );
+    public final static void setRequestManager(RequestManagerInterface rqm) {
+        Reject.ifNull(rqm);
         requestManager = rqm;
     }
 }

@@ -125,8 +125,18 @@ public class UCSRestBaseTests {
             }
 
             @Override
-            public boolean getRedisQueueEnabled() {
+            public boolean isRedisQueueActive() {
                 return false;
+            }
+
+            @Override
+            public String getRedisHostName() {
+                return "localhost";
+            }
+
+            @Override
+            public int getRedisPort() {
+                return 6379;
             }
 
         };

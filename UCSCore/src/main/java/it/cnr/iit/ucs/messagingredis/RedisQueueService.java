@@ -11,7 +11,7 @@ import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 public class RedisQueueService {
 	private RqueueMessageSender rqueueMessageSender;
 
-	public RedisQueueService(){
+	public RedisQueueService() {
 		rqueueMessageSender = new RqueueMessageSenderImpl(new RqueueMessageTemplateImpl(new JedisConnectionFactory()));
 	}
 

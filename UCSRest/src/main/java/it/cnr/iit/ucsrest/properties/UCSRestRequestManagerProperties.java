@@ -12,8 +12,14 @@ public class UCSRestRequestManagerProperties extends BaseProperties implements R
     @Value( "${active}" )
     private boolean active;
 
-    @Value( "${redisQueue.enabled}" )
-    private boolean redisQueueEnabled;
+    @Value( "${redis-queue-active}" )
+    private boolean redisQueueActive;
+
+    @Value( "${redis-queue-host-name:localhost}" )
+    private String redisQueueHostName;
+
+    @Value( "${redis-queue-port:6379}" )
+    private int redisQueuePort;
 
     @Override
     public String getApiRemoteResponse() {
@@ -28,13 +34,36 @@ public class UCSRestRequestManagerProperties extends BaseProperties implements R
         this.active = active;
     }
 
-    public boolean getRedisQueueEnabled() {
-        return redisQueueEnabled;
+    public void setRedisQueueActive( boolean redisQueueActive ) {
+        this.redisQueueActive = redisQueueActive;
+    }
+
+    public void setRedisQueueHostName( String redisQueueHostName ) {
+        this.redisQueueHostName = redisQueueHostName;
+    }
+
+    public void setRedisQueuePort( int redisQueuePort ) {
+        this.redisQueuePort = redisQueuePort;
+    }
+
+    @Override
+    public boolean isRedisQueueActive() {
+        return redisQueueActive;
     }
 
     @Override
     public boolean isActive() {
         return active;
+    }
+
+    @Override
+    public String getRedisHostName() {
+        return redisQueueHostName != null ? redisQueueHostName : "localhost";
+    }
+
+    @Override
+    public int getRedisPort() {
+        return redisQueuePort != 0 ? redisQueuePort : 6379;
     }
 
 }
