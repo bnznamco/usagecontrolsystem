@@ -22,5 +22,9 @@ public interface RequestManagerProperties extends CommonProperties {
 
     public boolean isActive();
 
-    public boolean getRedisQueueEnabled();
+    public boolean isRedisQueueActive();
+
+    public String getRedisHostName();
+
+    public int getRedisPort();
 }

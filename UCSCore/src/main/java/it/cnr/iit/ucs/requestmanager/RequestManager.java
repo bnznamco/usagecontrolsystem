@@ -41,7 +41,7 @@ public class RequestManager extends AbstractRequestManager {
 
     private static final Logger log = Logger.getLogger( RequestManager.class.getName() );
     private boolean active = false;
-    private boolean redisQueueEnabled = false;
+    private boolean redisQueueActive = false;
     private RedisQueueService RedisQueueService;
 
     private ExecutorService inquirers;
@@ -49,8 +49,8 @@ public class RequestManager extends AbstractRequestManager {
     public RequestManager( RequestManagerProperties properties ) {
         super( properties );
         this.active = properties.isActive();
-        this.redisQueueEnabled = properties.getRedisQueueEnabled();
-        if (redisQueueEnabled) RedisQueueService = new RedisQueueService();
+        this.redisQueueActive = properties.isRedisQueueActive();
+        if (redisQueueActive) RedisQueueService = new RedisQueueService();
         initializeInquirers();
     }
 
@@ -87,7 +87,7 @@ public class RequestManager extends AbstractRequestManager {
             if( !active ) {
                 handleMessage( message );
             } else {
-                if ( this.redisQueueEnabled) {
+                if ( this.redisQueueActive ) {
                     RedisQueueService.handleMessage( message );
                 } else {
                     getQueueOutput().put( message );
