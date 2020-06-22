@@ -25,7 +25,9 @@ class RqueueConfiguration {
     public SimpleRqueueListenerContainerFactory simpleRqueueListenerContainerFactory() {
         SimpleRqueueListenerContainerFactory factory = new SimpleRqueueListenerContainerFactory();
         boolean redisQueueActive = properties.getRequestManager().isRedisQueueActive();
+        int redisQueueMaxNumWorkers = properties.getRequestManager().getRqueueMaxNumWorkers();
         factory.setAutoStartup(redisQueueActive);
+        factory.setMaxNumWorkers(redisQueueMaxNumWorkers);
         return factory;
     }
 

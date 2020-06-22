@@ -21,6 +21,9 @@ public class UCSRestRequestManagerProperties extends BaseProperties implements R
     @Value( "${redis-queue-port:6379}" )
     private int redisQueuePort;
 
+    @Value( "${redis-queue-max-num-workers:1}" )
+    private int redisQueueMaxNumWorkers;
+
     @Override
     public String getApiRemoteResponse() {
         return apiRemoteResponse;
@@ -46,6 +49,10 @@ public class UCSRestRequestManagerProperties extends BaseProperties implements R
         this.redisQueuePort = redisQueuePort;
     }
 
+    public void setRedisQueueMaxNumWorkers( int redisQueueMaxNumWorkers ) {
+        this.redisQueueMaxNumWorkers = redisQueueMaxNumWorkers;
+    }
+
     @Override
     public boolean isRedisQueueActive() {
         return redisQueueActive;
@@ -64,6 +71,11 @@ public class UCSRestRequestManagerProperties extends BaseProperties implements R
     @Override
     public int getRedisPort() {
         return redisQueuePort != 0 ? redisQueuePort : 6379;
+    }
+
+    @Override
+    public int getRqueueMaxNumWorkers() {
+        return redisQueueMaxNumWorkers != 0 ? redisQueueMaxNumWorkers : 1;
     }
 
 }

@@ -27,4 +27,6 @@ public interface RequestManagerProperties extends CommonProperties {
     public String getRedisHostName();
 
     public int getRedisPort();
+
+    public int getRqueueMaxNumWorkers();
 }

@@ -139,6 +139,11 @@ public class UCSRestBaseTests {
                 return 6379;
             }
 
+            @Override
+            public int getRqueueMaxNumWorkers() {
+                return 1;
+            }
+
         };
     }
 
